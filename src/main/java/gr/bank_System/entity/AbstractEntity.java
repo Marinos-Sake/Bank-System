@@ -1,4 +1,4 @@
-package gr.Bank_System.entity;
+package gr.bank_System.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
