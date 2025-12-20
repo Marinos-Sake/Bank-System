@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Table(name = "Account")
+@Table(name = "accounts")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,10 +21,10 @@ public class Account extends AbstractEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 40)
     private String iban;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 3)
     private String currency;
 
     @Column(nullable = false)
@@ -34,4 +34,7 @@ public class Account extends AbstractEntity{
     @Column(nullable = false)
     private AccountStatus status = AccountStatus.OPEN;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User owner;
 }
