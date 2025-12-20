@@ -38,7 +38,7 @@ public class Person extends AbstractEntity{
     private String identityNumber;
 
     @Column(name = "phone", nullable = false, length = 10)
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
