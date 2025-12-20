@@ -1,9 +1,12 @@
 package gr.bank_System.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import gr.bank_System.core.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -38,11 +41,18 @@ public class User extends AbstractEntity{
     updatable = false)
     private String publicId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private Role role = Role.USER;
+
     @PrePersist
     private void ensurePublicId() {
         if ( publicId  == null || publicId.isBlank()) {
             publicId = UUID.randomUUID().toString(); }
     }
+
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Account> accounts = new ArrayList<>();
 
 
 }
