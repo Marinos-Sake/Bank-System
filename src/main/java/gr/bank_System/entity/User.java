@@ -16,7 +16,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString(exclude = {"password"})
-@EqualsAndHashCode(of = "id", callSuper = false)
 public class User extends AbstractEntity{
 
     @Id
