@@ -9,10 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomUserPrincipal implements UserDetails {
+public class CustomUserPrincipal implements UserDetails{
 
     private final String publicId;
     private final Long personId;
+    private final Long userId;
 
     private final String username;
     private final String password;
@@ -23,6 +24,7 @@ public class CustomUserPrincipal implements UserDetails {
     private CustomUserPrincipal(
             String publicId,
             Long personId,
+            Long userId,
             String username,
             String password,
             boolean active,
@@ -30,6 +32,7 @@ public class CustomUserPrincipal implements UserDetails {
     ) {
         this.publicId = publicId;
         this.personId = personId;
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.active = active;
@@ -40,6 +43,7 @@ public class CustomUserPrincipal implements UserDetails {
         return new CustomUserPrincipal(
                 user.getPublicId(),
                 user.getPerson().getId(),
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 Boolean.TRUE.equals(user.getIsActive()),
@@ -51,7 +55,7 @@ public class CustomUserPrincipal implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
-    // Προαιρετικά getters για business checks
+
     public String getPublicId() { return publicId; }
     public Long getPersonId() { return personId; }
 
@@ -88,5 +92,7 @@ public class CustomUserPrincipal implements UserDetails {
     @Override
     public boolean isEnabled() {
         return active;
+
     }
+
 }
